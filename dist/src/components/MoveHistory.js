@@ -75,7 +75,7 @@ const MoveHistory = ({ moveHistory, onUndoMove }) => {
   const reversedMoveHistory = [...moveHistory].reverse();
 
   return React.createElement('div', {
-    className: 'w-64 flex flex-col',
+    className: 'w-full md:w-64 flex flex-col',
     style: {
       backgroundColor: '#2d3748',
       color: '#ffffff',

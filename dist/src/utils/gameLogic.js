@@ -27,7 +27,8 @@ const createInitialBoard = () => {
   return board;
 };
 
-const isValidMove = (board, fromRow, fromCol, toRow, toCol) => {
+
+const isValidMove = (board, fromRow, fromCol, toRow, toCol, gameState) => {
   // Basic bounds checking
   if (toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) return false;
   
@@ -39,23 +40,51 @@ const isValidMove = (board, fromRow, fromCol, toRow, toCol) => {
   // Can't capture your own piece
   if (targetPiece && targetPiece.color === piece.color) return false;
   
-  // Simple movement rules (we'll expand this)
+  // Special moves check first
+  if (piece.type === PIECE_TYPES.KING && Math.abs(toCol - fromCol) === 2) {
+    // Castling attempt
+    return canCastle(board, fromRow, fromCol, toRow, toCol, piece.color, gameState);
+  }
+  
+  if (piece.type === PIECE_TYPES.PAWN && gameState && gameState.enPassantSquare) {
+    // Check for en passant
+    if (toRow === gameState.enPassantSquare.row && toCol === gameState.enPassantSquare.col) {
+      const direction = piece.color === COLORS.WHITE ? -1 : 1;
+      if (fromRow + direction === toRow && Math.abs(fromCol - toCol) === 1) {
+        return true;
+      }
+    }
+  }
+  
+  // Piece-specific movement rules
+  let isBasicMoveValid = false;
   switch (piece.type) {
-    case 'pawn':
-      return isValidPawnMove(board, fromRow, fromCol, toRow, toCol, piece.color);
-    case 'rook':
-      return isValidRookMove(board, fromRow, fromCol, toRow, toCol);
-    case 'knight':
-      return isValidKnightMove(fromRow, fromCol, toRow, toCol);
-    case 'bishop':
-      return isValidBishopMove(board, fromRow, fromCol, toRow, toCol);
-    case 'queen':
-      return isValidQueenMove(board, fromRow, fromCol, toRow, toCol);
-    case 'king':
-      return isValidKingMove(fromRow, fromCol, toRow, toCol);
+    case PIECE_TYPES.PAWN:
+      isBasicMoveValid = isValidPawnMove(board, fromRow, fromCol, toRow, toCol, piece.color);
+      break;
+    case PIECE_TYPES.ROOK:
+      isBasicMoveValid = isValidRookMove(board, fromRow, fromCol, toRow, toCol);
+      break;
+    case PIECE_TYPES.KNIGHT:
+      isBasicMoveValid = isValidKnightMove(fromRow, fromCol, toRow, toCol);
+      break;
+    case PIECE_TYPES.BISHOP:
+      isBasicMoveValid = isValidBishopMove(board, fromRow, fromCol, toRow, toCol);
+      break;
+    case PIECE_TYPES.QUEEN:
+      isBasicMoveValid = isValidQueenMove(board, fromRow, fromCol, toRow, toCol);
+      break;
+    case PIECE_TYPES.KING:
+      isBasicMoveValid = isValidKingMove(fromRow, fromCol, toRow, toCol);
+      break;
     default:
       return false;
   }
+  
+  if (!isBasicMoveValid) return false;
+  
+  // Check if this move would leave the king in check
+  return !wouldMoveLeaveKingInCheck(board, fromRow, fromCol, toRow, toCol, piece.color);
 };
 
 const isValidPawnMove = (board, fromRow, fromCol, toRow, toCol, color) => {

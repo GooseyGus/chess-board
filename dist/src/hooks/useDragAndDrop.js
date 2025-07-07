@@ -107,13 +107,13 @@ const useDragAndDrop = (gameState, gameActions) => {
             console.log('Deselected piece');
           } else {
             setSelectedSquare({ row: fromRow, col: fromCol });
-            const moves = window.getPossibleMoves(boardState, fromRow, fromCol);
+            const moves = window.getPossibleMoves(boardState, fromRow, fromCol, gameState.gameState);
             setPossibleMoves(moves);
             console.log('Piece stays selected');
           }
         } else {
           // Released on different square
-          if (window.isValidMove(boardState, fromRow, fromCol, targetRow, targetCol)) {
+          if (window.isValidMove(boardState, fromRow, fromCol, targetRow, targetCol, gameState.gameState)) {
             // Check if it's the current player's turn
             const piece = boardState[fromRow][fromCol];
             if (piece.color === currentPlayer) {
@@ -121,12 +121,12 @@ const useDragAndDrop = (gameState, gameActions) => {
             } else {
               console.log(`Not ${piece.color}'s turn!`);
               setSelectedSquare({ row: fromRow, col: fromCol });
-              const moves = window.getPossibleMoves(boardState, fromRow, fromCol);
+              const moves = window.getPossibleMoves(boardState, fromRow, fromCol, gameState.gameState);
               setPossibleMoves(moves);
             }
           } else {
             setSelectedSquare({ row: fromRow, col: fromCol });
-            const moves = window.getPossibleMoves(boardState, fromRow, fromCol);
+            const moves = window.getPossibleMoves(boardState, fromRow, fromCol, gameState.gameState);
             setPossibleMoves(moves);
             console.log('Invalid move - piece stays selected');
           }

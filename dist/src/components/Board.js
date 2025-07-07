@@ -75,6 +75,8 @@ const ChessBoard = () => {
     return squares;
   };
 
+  
+
   return React.createElement('div', {
     className: 'flex flex-col items-center p-4 md:p-8 min-h-screen',
     style: { backgroundColor: BOARD_COLORS.BACKGROUND }
@@ -125,7 +127,27 @@ const ChessBoard = () => {
     React.createElement(window.FloatingPiece, {
       key: 'floating',
       floatingPiece: gameState.floatingPiece
-    })
+    }),
+    
+    React.createElement(window.PromotionDialog, {
+      key: 'promotion',
+      promotionDialog: gameState.promotionDialog,
+      onPromote: gameState.promotePawn
+    }),
+    React.createElement('div', {
+            key: 'move-indicator',
+            className: 'move-dot absolute',
+            style: {
+              width: '20px',
+              height: '20px',
+              backgroundColor: dotColor,
+              borderRadius: '50%',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)'
+            }
+          })
+
   ]);
 };
 
