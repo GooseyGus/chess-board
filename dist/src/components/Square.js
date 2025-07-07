@@ -25,8 +25,8 @@ const Square = ({ row, col, piece, isSelected, isPossibleMove, isCapture, onClic
         key: 'move-indicator',
         className: 'move-dot absolute',
         style: {
-          width: '20px', // Desktop size
-          height: '20px', // Desktop size
+          width: '20px',
+          height: '20px',
           backgroundColor: dotColor,
           borderRadius: '50%',
           top: '50%',

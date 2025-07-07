@@ -11,11 +11,6 @@ const ChessBoard = () => {
 
   const dragHandlers = useDragAndDrop(gameState, gameActions);
 
-  // Detect if we're on mobile
-  const isMobile = () => {
-    return window.innerWidth <= 768;
-  };
-
   const isSquareSelected = (row, col) => {
     return gameState.selectedSquare && gameState.selectedSquare.row === row && gameState.selectedSquare.col === col;
   };
@@ -80,46 +75,6 @@ const ChessBoard = () => {
     return squares;
   };
 
-  const renderSidePanels = () => {
-    if (isMobile()) {
-      // Mobile layout: stacked vertically, captured pieces first
-      return React.createElement('div', {
-        className: 'mobile-panels'
-      }, [
-        React.createElement(window.CapturedPieces, {
-          key: 'captured-pieces',
-          moveHistory: gameState.moveHistory,
-          isMobile: true
-        }),
-        
-        React.createElement(window.MoveHistory, {
-          key: 'move-history',
-          moveHistory: gameState.moveHistory,
-          onUndoMove: gameState.undoMove,
-          isMobile: true
-        })
-      ]);
-    } else {
-      // Desktop layout: side by side
-      return React.createElement('div', {
-        className: 'side-panel flex flex-col gap-4 w-64'
-      }, [
-        React.createElement(window.MoveHistory, {
-          key: 'move-history',
-          moveHistory: gameState.moveHistory,
-          onUndoMove: gameState.undoMove,
-          isMobile: false
-        }),
-        
-        React.createElement(window.CapturedPieces, {
-          key: 'captured-pieces',
-          moveHistory: gameState.moveHistory,
-          isMobile: false
-        })
-      ]);
-    }
-  };
-
   return React.createElement('div', {
     className: 'flex flex-col items-center p-4 md:p-8 min-h-screen',
     style: { backgroundColor: BOARD_COLORS.BACKGROUND }
@@ -149,7 +104,22 @@ const ChessBoard = () => {
         style: { border: `4px solid ${BOARD_COLORS.BORDER}` }
       }, renderBoard()),
       
-      renderSidePanels()
+      // Right side panel with move history and captured pieces
+      React.createElement('div', {
+        key: 'side-panel',
+        className: 'side-panel flex flex-col gap-4 w-64'
+      }, [
+        React.createElement(window.MoveHistory, {
+          key: 'move-history',
+          moveHistory: gameState.moveHistory,
+          onUndoMove: gameState.undoMove
+        }),
+        
+        React.createElement(window.CapturedPieces, {
+          key: 'captured-pieces',
+          moveHistory: gameState.moveHistory
+        })
+      ])
     ]),
     
     React.createElement(window.FloatingPiece, {
