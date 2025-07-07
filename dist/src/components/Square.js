@@ -83,7 +83,7 @@ const Square = ({ row, col, piece, isSelected, isPossibleMove, isCapture, onClic
   };
 
   return React.createElement('div', {
-    className: 'w-16 h-16 flex items-center justify-center relative',
+    className: 'chess-square w-16 h-16 flex items-center justify-center relative',
     style: {
       backgroundColor: getSquareBackgroundColor(),
       cursor: getSquareCursor(),

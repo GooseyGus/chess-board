@@ -76,12 +76,12 @@ const ChessBoard = () => {
   };
 
   return React.createElement('div', {
-    className: 'flex flex-col items-center p-8 min-h-screen',
+    className: 'flex flex-col items-center p-4 md:p-8 min-h-screen',
     style: { backgroundColor: BOARD_COLORS.BACKGROUND }
   }, [
     React.createElement('h1', {
       key: 'title',
-      className: 'text-3xl font-bold mb-6',
+      className: 'text-2xl md:text-3xl font-bold mb-4 md:mb-6',
       style: { color: BOARD_COLORS.TEXT }
     }, 'Chess Game'),
     
@@ -93,21 +93,21 @@ const ChessBoard = () => {
       onFlipBoard: gameState.flipBoard
     }),
     
-    // Main game area with board and side panels
+    // Main game area with responsive layout
     React.createElement('div', {
       key: 'game-area',
-      className: 'flex gap-8 items-start'
+      className: 'game-layout flex flex-col md:flex-row gap-4 md:gap-8 items-center md:items-start'
     }, [
       React.createElement('div', {
         key: 'board',
-        className: 'grid grid-cols-8 gap-0 shadow-lg',
+        className: 'chess-board grid grid-cols-8 gap-0 shadow-lg',
         style: { border: `4px solid ${BOARD_COLORS.BORDER}` }
       }, renderBoard()),
       
       // Right side panel with move history and captured pieces
       React.createElement('div', {
         key: 'side-panel',
-        className: 'flex flex-col gap-4'
+        className: 'side-panel flex flex-col gap-4 w-64'
       }, [
         React.createElement(window.MoveHistory, {
           key: 'move-history',

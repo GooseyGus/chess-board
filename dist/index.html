@@ -7,6 +7,54 @@
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .chess-board {
+                width: 90vw !important;
+                height: 90vw !important;
+                max-width: 400px !important;
+                max-height: 400px !important;
+            }
+            
+            .chess-square {
+                width: calc(90vw / 8) !important;
+                height: calc(90vw / 8) !important;
+                max-width: 50px !important;
+                max-height: 50px !important;
+            }
+            
+            .chess-piece {
+                width: calc(90vw / 8 * 0.8) !important;
+                height: calc(90vw / 8 * 0.8) !important;
+                max-width: 40px !important;
+                max-height: 40px !important;
+            }
+            
+            .side-panel {
+                width: 100% !important;
+                max-width: 400px !important;
+                margin-top: 20px !important;
+            }
+            
+            .game-layout {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            
+            .move-dot {
+                width: 12px !important;
+                height: 12px !important;
+            }
+            
+            .floating-piece {
+                width: calc(90vw / 8 * 0.8) !important;
+                height: calc(90vw / 8 * 0.8) !important;
+                max-width: 40px !important;
+                max-height: 40px !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <div id="root"></div>

@@ -2,7 +2,6 @@ const Piece = ({ type, color, onClick, onMouseDown, onMouseUp, onMouseMove, isDr
   const imagePath = `./assets/pieces/${color}-${type}.svg`;
   
   const getCursorStyle = () => {
-    // Add safety check for isMouseDown
     if (isMouseDown === true) return 'grabbing';
     return 'grab';
   };
@@ -10,8 +9,8 @@ const Piece = ({ type, color, onClick, onMouseDown, onMouseUp, onMouseMove, isDr
   return React.createElement('img', {
     src: imagePath,
     alt: `${color} ${type}`,
-    draggable: false, // Disable default drag behavior
-    className: `piece select-none transition-transform duration-150 ${
+    draggable: false,
+    className: `chess-piece piece select-none transition-transform duration-150 ${
       isDragging ? 'opacity-50 scale-110' : 'hover:scale-110'
     }`,
     style: {
@@ -26,7 +25,6 @@ const Piece = ({ type, color, onClick, onMouseDown, onMouseUp, onMouseMove, isDr
     onMouseUp: onMouseUp,
     onMouseMove: onMouseMove,
     onError: (e) => {
-      // Fallback to Unicode if SVG fails
       e.target.style.display = 'none';
       const fallback = document.createElement('div');
       fallback.style.fontSize = '60px';
