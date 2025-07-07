@@ -11,19 +11,6 @@ const useChessGame = () => {
   const [gameStatus, setGameStatus] = React.useState(''); // 'check', 'checkmate', 'stalemate', ''
   const [winner, setWinner] = React.useState(null);
   const [moveHistory, setMoveHistory] = React.useState([]); // For undo functionality
-  const [enPassantSquare, setEnPassantSquare] = React.useState(null);
-  const [castlingRights, setCastlingRights] = React.useState({
-    whiteKingSide: true,
-    whiteQueenSide: true,
-    blackKingSide: true,
-    blackQueenSide: true
-  });
-  const [promotionDialog, setPromotionDialog] = React.useState(null); // { row, col, color }
-
-  const gameState = {
-    enPassantSquare,
-    castlingRights
-  };
 
   const checkGameStatus = (board, player) => {
     if (window.isCheckmate(board, player)) {

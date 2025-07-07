@@ -90,7 +90,7 @@ const CapturedPieces = ({ moveHistory }) => {
   const blackPoints = calculatePoints(blackCaptured);
 
   return React.createElement('div', {
-    className: 'w-full md:w-64 flex flex-col gap-2',
+    className: 'w-64 flex flex-col gap-2',
     style: {
       backgroundColor: '#2d3748',
       color: '#ffffff',
