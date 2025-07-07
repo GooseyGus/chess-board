@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Fix mobile background and make move dots smaller */
+        /* Fix mobile background and optimize for mobile */
         body {
             background-color: #2c2b29 !important;
             margin: 0;
@@ -35,10 +35,10 @@
             }
             
             .chess-piece {
-                width: calc(90vw / 8 * 0.8) !important;
-                height: calc(90vw / 8 * 0.8) !important;
-                max-width: 40px !important;
-                max-height: 40px !important;
+                width: calc(90vw / 8 * 0.9) !important;
+                height: calc(90vw / 8 * 0.9) !important;
+                max-width: 45px !important;
+                max-height: 45px !important;
             }
             
             .side-panel {
@@ -58,10 +58,16 @@
             }
             
             .floating-piece {
-                width: calc(90vw / 8 * 0.8) !important;
-                height: calc(90vw / 8 * 0.8) !important;
-                max-width: 40px !important;
-                max-height: 40px !important;
+                display: none !important; /* Hide floating pieces on mobile */
+            }
+            
+            /* Disable drag and drop on mobile */
+            .chess-piece {
+                pointer-events: none !important;
+            }
+            
+            .chess-square {
+                cursor: pointer !important;
             }
             
             /* Ensure full background coverage */

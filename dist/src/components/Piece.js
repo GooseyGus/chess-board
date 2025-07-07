@@ -1,7 +1,13 @@
 const Piece = ({ type, color, onClick, onMouseDown, onMouseUp, onMouseMove, isDragging, isMouseDown }) => {
   const imagePath = `./assets/pieces/${color}-${type}.svg`;
   
+  // Detect if we're on mobile
+  const isMobile = () => {
+    return window.innerWidth <= 768;
+  };
+
   const getCursorStyle = () => {
+    if (isMobile()) return 'pointer'; // Use pointer cursor on mobile
     if (isMouseDown === true) return 'grabbing';
     return 'grab';
   };
@@ -18,12 +24,12 @@ const Piece = ({ type, color, onClick, onMouseDown, onMouseUp, onMouseMove, isDr
       height: '60px',
       userSelect: 'none',
       cursor: getCursorStyle(),
-      pointerEvents: 'auto'
+      pointerEvents: isMobile() ? 'none' : 'auto' // Disable pointer events on mobile
     },
     onClick: onClick,
-    onMouseDown: onMouseDown,
-    onMouseUp: onMouseUp,
-    onMouseMove: onMouseMove,
+    onMouseDown: isMobile() ? undefined : onMouseDown, // Disable mouse down on mobile
+    onMouseUp: isMobile() ? undefined : onMouseUp,
+    onMouseMove: isMobile() ? undefined : onMouseMove,
     onError: (e) => {
       e.target.style.display = 'none';
       const fallback = document.createElement('div');

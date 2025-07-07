@@ -16,9 +16,22 @@ const useDragAndDrop = (gameState, gameActions) => {
     setHoveredSquare
   } = gameActions;
 
+  // Detect if we're on mobile
+  const isMobile = () => {
+    return window.innerWidth <= 768;
+  };
+
   React.useEffect(() => {
+    // Don't set up drag and drop on mobile
+    if (isMobile()) {
+      return;
+    }
+
     const handleMouseMove = (e) => {
       if (mouseDownPiece) {
+        // Set cursor to grabbing when dragging
+        document.body.style.cursor = 'grabbing';
+        
         setFloatingPiece({
           ...mouseDownPiece,
           x: e.clientX,
@@ -52,6 +65,9 @@ const useDragAndDrop = (gameState, gameActions) => {
 
     const handleMouseUp = (e) => {
       if (mouseDownPiece) {
+        // Reset cursor when done dragging
+        document.body.style.cursor = 'default';
+        
         const fromRow = mouseDownPiece.row;
         const fromCol = mouseDownPiece.col;
         const wasAlreadySelected = mouseDownPiece.wasAlreadySelected;
@@ -128,10 +144,17 @@ const useDragAndDrop = (gameState, gameActions) => {
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      // Reset cursor when component unmounts
+      document.body.style.cursor = 'default';
     };
   }, [mouseDownPiece, isFlipped, boardState, currentPlayer]);
 
   const handlePieceMouseDown = (row, col, e) => {
+    // Don't handle mouse down on mobile - let click handle everything
+    if (isMobile()) {
+      return;
+    }
+
     const piece = boardState[row][col];
     if (piece) {
       // Only allow interaction with current player's pieces
@@ -169,12 +192,31 @@ const useDragAndDrop = (gameState, gameActions) => {
     if (selectedSquare && isClickOnPossibleMove) {
       // Check if it's the current player's turn
       const selectedPiece = boardState[selectedSquare.row][selectedSquare.col];
-      if (selectedPiece.color === currentPlayer) {
+      if (selectedPiece && selectedPiece.color === currentPlayer) {
         movePiece(selectedSquare.row, selectedSquare.col, row, col);
       } else {
-        console.log(`Not ${selectedPiece.color}'s turn!`);
+        console.log(`Not ${selectedPiece?.color}'s turn!`);
       }
-    } else if (!piece) {
+    } else if (piece) {
+      // Only allow interaction with current player's pieces
+      if (piece.color !== currentPlayer) {
+        console.log(`Not ${piece.color}'s turn!`);
+        return;
+      }
+
+      // Check if clicking on the same piece (deselect)
+      if (selectedSquare && selectedSquare.row === row && selectedSquare.col === col) {
+        setSelectedSquare(null);
+        setPossibleMoves([]);
+        console.log('Deselected piece');
+      } else {
+        // Select this piece and show possible moves
+        setSelectedSquare({ row, col });
+        const moves = window.getPossibleMoves(boardState, row, col);
+        setPossibleMoves(moves);
+        console.log(`Selected: ${piece.color} ${piece.type} at ${row}, ${col}`);
+      }
+    } else {
       setSelectedSquare(null);
       setPossibleMoves([]);
       console.log('Deselected piece');
