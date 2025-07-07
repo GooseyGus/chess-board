@@ -90,14 +90,15 @@ const CapturedPieces = ({ moveHistory }) => {
   const blackPoints = calculatePoints(blackCaptured);
 
   return React.createElement('div', {
-    className: 'w-64 flex flex-col gap-2',
+    className: isMobile ? 'mobile-captured-pieces flex flex-col gap-2' : 'w-64 flex flex-col gap-2',
     style: {
       backgroundColor: '#2d3748',
       color: '#ffffff',
       borderRadius: '8px',
       border: '2px solid #4a5568',
       padding: '10px',
-      height: '158px' // Keep same height
+      height: isMobile ? 'auto' : '158px',
+      minHeight: isMobile ? '120px' : 'auto'
     }
   }, [
     // White captured pieces (pieces taken by Black)
@@ -155,8 +156,6 @@ const CapturedPieces = ({ moveHistory }) => {
         }
       }, renderPieceGroups(blackCaptured, COLORS.BLACK))
     ])
-    
-    // Removed the point advantage display
   ]);
 };
 

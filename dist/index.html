@@ -42,7 +42,7 @@
             }
             
             .side-panel {
-                width: 100% !important;
+                width: 90vw !important;
                 max-width: 400px !important;
                 margin-top: 20px !important;
             }
@@ -53,8 +53,8 @@
             }
             
             .move-dot {
-                width: 8px !important;
-                height: 8px !important;
+                width: 12px !important;
+                height: 12px !important;
             }
             
             .floating-piece {
@@ -68,6 +68,27 @@
             
             .chess-square {
                 cursor: pointer !important;
+            }
+            
+            /* Mobile panel layout */
+            .mobile-panels {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 16px !important;
+                width: 90vw !important;
+                max-width: 400px !important;
+                margin-top: 20px !important;
+            }
+            
+            .mobile-captured-pieces {
+                width: 100% !important;
+                height: auto !important;
+                min-height: 120px !important;
+            }
+            
+            .mobile-move-history {
+                width: 100% !important;
+                height: 200px !important;
             }
             
             /* Ensure full background coverage */

@@ -75,13 +75,13 @@ const MoveHistory = ({ moveHistory, onUndoMove }) => {
   const reversedMoveHistory = [...moveHistory].reverse();
 
   return React.createElement('div', {
-    className: 'w-64 flex flex-col',
+    className: isMobile ? 'mobile-move-history flex flex-col' : 'w-64 flex flex-col',
     style: {
       backgroundColor: '#2d3748',
       color: '#ffffff',
       borderRadius: '8px',
       border: '2px solid #4a5568',
-      height: '346px' // Reduced height (354 + 16 gap + 158 = 528px total)
+      height: isMobile ? '200px' : '354px'
     }
   }, [
     React.createElement('div', {
@@ -105,7 +105,7 @@ const MoveHistory = ({ moveHistory, onUndoMove }) => {
         className: 'text-center text-gray-400 mt-8'
       }, 'No moves yet')
     ] : reversedMoveHistory.map((move, index) => {
-      const originalIndex = moveHistory.length - 1 - index; // Get original index
+      const originalIndex = moveHistory.length - 1 - index;
       return renderMoveItem(move, index, originalIndex);
     }))
   ]);
