@@ -85,23 +85,6 @@ const CapturedPieces = ({ moveHistory }) => {
     }));
   };
 
-  const renderPointAdvantage = (whitePoints, blackPoints) => {
-    const difference = blackPoints - whitePoints; // Fixed: Black captured pieces minus white captured pieces
-    
-    if (difference === 0) return null;
-    
-    const isWhiteAdvantage = difference > 0; // White advantage when black lost more pieces
-    const advantageValue = Math.abs(difference);
-    
-    return React.createElement('div', {
-      className: 'text-center px-2 py-1 rounded text-sm font-bold',
-      style: {
-        backgroundColor: isWhiteAdvantage ? '#f8f9fa' : '#343a40',
-        color: isWhiteAdvantage ? '#343a40' : '#f8f9fa'
-      }
-    }, `${isWhiteAdvantage ? 'White' : 'Black'} +${advantageValue}`);
-  };
-
   const { whiteCaptured, blackCaptured } = getCapturedPieces();
   const whitePoints = calculatePoints(whiteCaptured);
   const blackPoints = calculatePoints(blackCaptured);
@@ -114,7 +97,7 @@ const CapturedPieces = ({ moveHistory }) => {
       borderRadius: '8px',
       border: '2px solid #4a5568',
       padding: '10px',
-      height: '158px' // Reduced height
+      height: '158px' // Keep same height
     }
   }, [
     // White captured pieces (pieces taken by Black)
@@ -171,10 +154,9 @@ const CapturedPieces = ({ moveHistory }) => {
           padding: '4px 8px'
         }
       }, renderPieceGroups(blackCaptured, COLORS.BLACK))
-    ]),
+    ])
     
-    // Point advantage display
-    renderPointAdvantage(whitePoints, blackPoints)
+    // Removed the point advantage display
   ]);
 };
 

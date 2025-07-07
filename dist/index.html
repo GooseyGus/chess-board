@@ -8,7 +8,17 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Mobile responsive styles */
+        /* Fix mobile background and make move dots smaller */
+        body {
+            background-color: #2c2b29 !important;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            background-color: #2c2b29 !important;
+        }
+        
         @media (max-width: 768px) {
             .chess-board {
                 width: 90vw !important;
@@ -43,8 +53,8 @@
             }
             
             .move-dot {
-                width: 12px !important;
-                height: 12px !important;
+                width: 8px !important;
+                height: 8px !important;
             }
             
             .floating-piece {
@@ -52,6 +62,12 @@
                 height: calc(90vw / 8 * 0.8) !important;
                 max-width: 40px !important;
                 max-height: 40px !important;
+            }
+            
+            /* Ensure full background coverage */
+            #root {
+                background-color: #2c2b29 !important;
+                min-height: 100vh !important;
             }
         }
     </style>

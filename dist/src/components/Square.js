@@ -9,7 +9,7 @@ const Square = ({ row, col, piece, isSelected, isPossibleMove, isCapture, onClic
       
       return React.createElement('div', {
         key: 'capture-indicator',
-        className: 'absolute inset-0', // inset-1 = 4px from edges
+        className: 'absolute inset-1',
         style: {
           border: `4px solid ${circleColor}`,
           borderRadius: '50%',
@@ -23,7 +23,7 @@ const Square = ({ row, col, piece, isSelected, isPossibleMove, isCapture, onClic
       
       return React.createElement('div', {
         key: 'move-indicator',
-        className: 'absolute',
+        className: 'move-dot absolute',
         style: {
           width: '20px',
           height: '20px',
