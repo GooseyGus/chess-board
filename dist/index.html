@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Game</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- Load in dependency order -->
+    <script src="./src/utils/constants.js"></script>
+    <script src="./src/utils/gameState.js"></script>
+    <script src="./src/utils/moveValidation.js"></script>
+    <script src="./src/hooks/useChessGame.js"></script>
+    <script src="./src/hooks/useDragAndDrop.js"></script>
+    <script src="./src/components/Piece.js"></script>
+    <script src="./src/components/Square.js"></script>
+    <script src="./src/components/FloatingPiece.js"></script>
+    <script src="./src/components/MoveHistory.js"></script>
+    <script src="./src/components/CapturedPieces.js"></script>
+    <script src="./src/components/GameControls.js"></script>
+    <script src="./src/components/Board.js"></script>
+    
+    <script>
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(window.ChessBoard));
+    </script>
+</body>
+</html>
